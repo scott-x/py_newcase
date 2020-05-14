@@ -2,6 +2,7 @@ import os
 from job import Job
 from category import JobCategory
 from type import T
+from newcase import do
 
 DESKTOP = os.getenv('HOME')+"/Desktop"
 
@@ -48,5 +49,6 @@ def handle_country(answer):
 
     bmk_job = input("请输入单号[eg: U200325_APP]:")
     job.setJob(bmk_job)
+    do(job)
 
 handle_country(int(a))
