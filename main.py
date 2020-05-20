@@ -4,6 +4,7 @@ from category import JobCategory
 from type import T
 from newcase import do
 from color import Colored
+from util import validateJob
 
 cl = Colored()
 
@@ -53,6 +54,10 @@ def handle_first_selection(answer):
         job.setPO(po)
     else:  
         bmk_job = input(cl.cyan("工单号:"))
+
+        while not validateJob(bmk_job,answer):
+            bmk_job = input(cl.cyan("请输入正确的工单号:"))
+
         bref_brand = input(cl.cyan("系列简称:"))
         country = input(cl.cyan("国家:"))
 

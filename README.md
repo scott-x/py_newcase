@@ -2,6 +2,5 @@
 
 ** 待完善 **
 
-- 输入regexp校验
 - docker number
-- py excel图形绘制
+- 新增智能识别，自动填充（数据不合法则置为空）
