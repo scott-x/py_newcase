@@ -77,7 +77,10 @@ class Job():
         self.to = self.job_dir+"/"+self.job+"_DetailList_W.xls"
 
     def setCountry(self,country):
-        self.country = country.strip().capitalize()
+        if len(country)==3:
+            self.country = country.strip().upper()
+        else:    
+            self.country = country.strip().capitalize()
 
     def set_bref_brand(self,bref_brand):
         self.bref_brand = bref_brand.upper()
@@ -93,16 +96,16 @@ class Job():
         self.department = department.strip()
 
     def setDue(self,due):
-        self.due = due.strip()
+        self.due = str(due).strip()
 
     def setPackout(self,packout):
-        self.packout = packout.strip()
+        self.packout = str(packout).strip()
 
     def setShip(self,ship):
-        self.ship = ship.strip()
+        self.ship = str(ship).strip()
     
     def setStore(self,store):
-        self.store = store.strip()
+        self.store = str(store).strip()
     
     def setContact(self,contact):
         self.contact = contact.strip()

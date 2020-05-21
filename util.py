@@ -5,25 +5,42 @@ def isExist(pth):
 	return Path(pth).exists()
 
 def firstLetterUpper(str):
-    return str
-	# str = str.strip()
- #    str = str.lower()
- #    if len(str)==0:
- #        str = ''
- #    else:
- #        if " " in str:
- #        	s = ""
- #        	str_arr = str.split()
- #        	n = 1
- #        	for x in str_arr:
- #        		n +=1
- #        		s += x.capitalize()
- #        		if n!=len(str_arr):
- #        			s += " "
- #        	str = s			
- #        else:
- #        	str str.capitalize()
- #    return str        
+	str = str.lower().strip()
+	
+	if " " in str:
+		str = str.split(' ')
+		new_str = ""
+		
+		for x in str:
+			item =""
+			n = 0
+			for y in x:
+				n += 1
+				if n==1:
+	 				if ord(x[0]) >=97 and ord(x[0]) <= 122:
+	 					y = chr(ord(x[0])-32)
+				item += y
+			new_str += item+" "
+			if "hk" in new_str or 'Hk' in new_str:
+				new_str = new_str.replace("hk","HK")
+			if "usa" in new_str or "Usa" in new_str:
+				new_str = new_str.replace("usa","USA")
+			if "ig" in new_str or "Ig" in new_str:
+				new_str = new_str.replace("ig","IG")	
+			if "f.c." in new_str or "F.c." in new_str:
+				new_str = new_str.replace("f.c.","F.C.")
+			if "lp" in new_str or "Lp" in new_str:
+				new_str = new_str.replace("lp","LP")
+			if "ucp" in new_str or "Ucp" in new_str:
+				new_str = new_str.replace("ucp","UCP")
+			if "dsl" in new_str or "Dsl" in new_str:
+				new_str = new_str.replace("dsl","DSL")
+			if "Gi-go" in new_str:
+				new_str = new_str.replace("Gi-go","Gi-Go")	
+		return new_str	
+	else:
+		return str.capitalize()
+
 
 def validateJob(job,answer):
 	match_str = ""

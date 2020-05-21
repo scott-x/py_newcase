@@ -5,6 +5,8 @@ from type import T
 from newcase import do
 from color import Colored
 from util import validateJob
+from autoRead import parse_excel
+from util import isExist
 
 cl = Colored()
 
@@ -57,30 +59,50 @@ def handle_first_selection(answer):
 
         while not validateJob(bmk_job,answer):
             bmk_job = input(cl.cyan("请输入正确的工单号:"))
-
-        bref_brand = input(cl.cyan("系列简称:"))
-        country = input(cl.cyan("国家:"))
-
-        supplier = input(cl.cyan("Supplier: "))
-        buyer = input(cl.cyan("Buyer Name:"))
-        department = input(cl.cyan("Department: "))
-        due = input(cl.cyan("Artwork due date: "))
-        packout = input(cl.cyan("Packout date: "))
-        ship = input(cl.cyan("Shipdate: "))
-        store = input(cl.cyan("In-store date: "))
-        contact = input(cl.cyan("联系人: "))
+        
+        #if bmk_job exists return
+        if isExist(os.getenv("HOME")+"/Desktop/"+bmk_job.upper()+" 做稿"):
+            print(cl.red("桌面上检测到: "+bmk_job.upper()+" 做稿"))
+            return
 
         job.setJob(bmk_job)
-        job.setCountry(country)
+        bref_brand = input(cl.cyan("系列简称:"))
         job.set_bref_brand(bref_brand)
-        job.setSupplier(supplier)
-        job.setBuyer(buyer)
-        job.setDepartment(department)
-        job.setDue(due)
-        job.setPackout(packout)
-        job.setShip(ship)
-        job.setStore(store)
-        job.setContact(contact)
+        
+        standared = input(cl.cyan("是否是标准的excel[y/n]:"))
+        if standared=='y' or standared=='Y':
+            pf_path = input(cl.cyan("please drag your packaging form here:"))
+            pf_path = pf_path.strip()
+            country,supplier,buyer,department,due,ship,store,packout,contact=parse_excel(pf_path)
+            job.setCountry(country)
+            job.setSupplier(supplier)
+            job.setBuyer(buyer)
+            job.setDepartment(department)
+            job.setDue(due)
+            job.setPackout(packout)
+            job.setShip(ship)
+            job.setStore(store)
+            job.setContact(contact)
+        else:
+            country = input(cl.cyan("国家:"))
+            supplier = input(cl.cyan("Supplier: "))
+            buyer = input(cl.cyan("Buyer Name:"))
+            department = input(cl.cyan("Department: "))
+            due = input(cl.cyan("Artwork due date: "))
+            packout = input(cl.cyan("Packout date: "))
+            ship = input(cl.cyan("Shipdate: "))
+            store = input(cl.cyan("In-store date: "))
+            contact = input(cl.cyan("联系人: "))
+
+            job.setCountry(country)
+            job.setSupplier(supplier)
+            job.setBuyer(buyer)
+            job.setDepartment(department)
+            job.setDue(due)
+            job.setPackout(packout)
+            job.setShip(ship)
+            job.setStore(store)
+            job.setContact(contact)
     
     do(job)
 
