@@ -7,6 +7,7 @@ m = {
     "HV":"Harvest",
     "PEN":"Pen + Gear",
     "HOL":"Holiday Time",
+    "VAL":"Valentine",
     "WTC":"Way To Celebrate",
     "WTCW":"Way To Celebrate Wedding",
     "PA" :"Patriotic",
@@ -19,8 +20,16 @@ m = {
     "FA":"Father's Day",
     "MO":"Mother's Day",
     "MSB":"May Sweet Baby",
-    "OZ":"Ozark",
-    "GV":"Great Value"
+    "OZ":"Ozark Trail",
+    "GV":"Great Value",
+    "BW":"BlackWeb",
+    "ONN":"ONN",
+    "AW":"Athletic Works",
+    "CA":"Canadiana",
+    "MOV":"Movelo",
+    "GV":"Great Value",
+    "SP":"Spark",
+    "EQU":"Equate"
 }
 
 def get_temp(str):
