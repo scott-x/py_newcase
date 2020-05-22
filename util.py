@@ -1,6 +1,13 @@
 from pathlib import Path
 import re
 
+# get the cell value, such as buyer information: Teresa Parker (D18)
+def parseCellValue(str):
+	if ":" in str:
+		return str.split(':')[1]
+	else:
+		return ""	
+
 def isExist(pth):
 	return Path(pth).exists()
 
@@ -37,6 +44,8 @@ def firstLetterUpper(str):
 				new_str = new_str.replace("dsl","DSL")
 			if "Gi-go" in new_str:
 				new_str = new_str.replace("Gi-go","Gi-Go")	
+			if "(pvt)" in new_str:
+				new_str = new_str.replace("(pvt)","(PVT)")	
 		return new_str	
 	else:
 		return str.capitalize()

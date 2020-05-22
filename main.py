@@ -10,12 +10,19 @@ from util import isExist
 
 cl = Colored()
 
+valid = True
+
 print(cl.green("请选择你要做的新case类型【1-4】:"))
 print(cl.cyan(" 1. USA"))
 print(cl.cyan(" 2. CAN"))
 print(cl.cyan(" 3. 非WMT"))
 print(cl.cyan(" 4. 印刷"))
 a = input(cl.magenta("your selection is: "))
+
+if a != '1' and a!='2' and a!='3' and a!='4':
+    print("非法操作，程序退出")
+    exit()
+
 job = Job()
 
 def handle_type(t):
@@ -27,6 +34,7 @@ def handle_type(t):
         print(cl.red("输入有误"))
 
 def handle_first_selection(answer):
+    answer = int(answer)
     show_type_selection = True
     if answer == 1:
         job.setCategory(JobCategory.USA)
@@ -40,13 +48,15 @@ def handle_first_selection(answer):
         job.setCategory(JobCategory.PRINT)
     else:
         show_type_selection = False
-        print("输入有误")
 
     if show_type_selection:
         print(cl.green("检查还是印刷【1-2】："))
         print(cl.cyan(" 1. 做稿"))
         print(cl.cyan(" 2. 检查"))
         b = input(cl.magenta("your selection is: "))
+        if b!='1' and b !='2':
+            print("非法操作，程序退出")
+            exit()
         handle_type(int(b))
     
     if answer == 4:
@@ -72,6 +82,8 @@ def handle_first_selection(answer):
         standared = input(cl.cyan("是否是标准的excel[y/n]:"))
         if standared=='y' or standared=='Y':
             pf_path = input(cl.cyan("please drag your packaging form here:"))
+            while "\\" in pf_path:
+                pf_path = input(cl.cyan("Excel文件名不合法，请重命名 eg, a.xlsx 再重新尝试:"))
             pf_path = pf_path.strip()
             country,supplier,buyer,department,due,ship,store,packout,contact=parse_excel(pf_path)
             job.setCountry(country)
@@ -105,5 +117,5 @@ def handle_first_selection(answer):
             job.setContact(contact)
     
     do(job)
-
+      
 handle_first_selection(int(a))

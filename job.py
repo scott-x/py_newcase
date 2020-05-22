@@ -33,7 +33,7 @@ m = {
 }
 
 def get_temp(str):
-    return os.getcwd() +"/templates/"+str+".xls"
+    return os.getenv("HOME") +"/templates/"+str+".xls"
 
 class Job():
     def __init__(self):
