@@ -29,7 +29,8 @@ m = {
     "MOV":"Movelo",
     "GV":"Great Value",
     "SP":"Spark",
-    "EQU":"Equate"
+    "EQU":"Equate",
+    "GD":"Graduation"
 }
 
 def get_temp(str):
