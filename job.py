@@ -1,5 +1,7 @@
 from category import JobCategory
 from util import firstLetterUpper
+from type import T
+
 import os
 
 m = {
@@ -64,8 +66,13 @@ class Job():
         self.PO = ''   
         # t
         self.t = ''
+        # docket
+        self.docket = ''
         pass
 
+    def setDocket(self,docket):
+        self.docket = docket
+    
     def setPO(self,po):
         self.PO = po
 
@@ -85,7 +92,15 @@ class Job():
 
     def set_bref_brand(self,bref_brand):
         self.bref_brand = bref_brand.upper()
-        self.program = m.get(self.bref_brand)
+        if self.bref_brand in m:
+            self.program = m.get(self.bref_brand)
+        else:
+            self.program = ""
+            if self.category==JobCategory.PRINT:
+                self.bref_brand = bref_brand.upper()
+            else:    
+                self.bref_brand = bref_brand
+            
 
     def setSupplier(self,supplier):
         self.supplier = firstLetterUpper(supplier.strip())
@@ -114,9 +129,17 @@ class Job():
     def setCategory(self, category):
         self.category = category
         if self.category == JobCategory.USA:
-            self.template = get_temp('usa')
+            if self.t == T.PROOFING:
+                self.template = get_temp('usa_proofing')
+            else:
+                self.template = get_temp('usa')
+
         elif self.category == JobCategory.CAN:
-            self.template = get_temp('can')
+            if self.t == T.PROOFING:
+                self.template = get_temp('can_proofing')
+            else:
+                self.template = get_temp('can')
+
         elif self.category == JobCategory.OTHER:
             self.template = get_temp('nonwmt')
         elif self.category == JobCategory.PRINT:

@@ -7,6 +7,19 @@ from util import isExist
 from category import JobCategory
 from type import T
 
+
+def getYesterday(): 
+    today=datetime.date.today() 
+    oneday=datetime.timedelta(days=1) 
+    yesterday=today-oneday  
+    return yesterday.strftime('%m%d')
+
+def getYesterdayDate(): 
+    today=datetime.date.today() 
+    oneday=datetime.timedelta(days=1) 
+    yesterday=today-oneday  
+    return yesterday.strftime('%m/%d/%Y')    
+   
 # https://www.cnblogs.com/guoyunlong666/p/11416503.html
 
 def do(job):
@@ -97,6 +110,14 @@ def do(job):
 	# new_sheet.col(1).width -= 600
 	case_num = "Job #: "+job.job
 	bref_brand = job.bref_brand
+	
+	if job.t == T.PROOFING:
+		if job.category==JobCategory.USA:
+			bref_brand = "WMUS "+job.bref_brand
+		else:
+			bref_brand = "WMCA "+job.bref_brand
+			pass
+	
 	country = job.country
 	program = "Program: "+job.program
 	supplier = "Supplier: "+job.supplier
@@ -107,10 +128,16 @@ def do(job):
 	ship = "Shipdate: "+ job.ship
 	store = "In-store date: "+job.store
 	contact = "联系人: "+ job.contact
+	docket = "Docket Number: " + job.docket			
 
 	today_str = datetime.datetime.now().strftime('%m/%d/%Y')
 	new_sheet.write(1, 1, case_num,style1)
-	new_sheet.write(4, 0, str(today_str),style)
+	if datetime.datetime.now().hour>8:
+		new_sheet.write(4, 0, str(today_str),style)
+	else:
+		new_sheet.write(4, 0, str(getYesterdayDate()),style)	
+		pass
+	
 
 	if job.category== JobCategory.PRINT:
 		new_sheet.write(2, 1, job.PO ,style2)
@@ -118,11 +145,14 @@ def do(job):
 		Brand_Country = bref_brand+"/"+country if country !='' else bref_brand
 		new_sheet.write(2, 1, Brand_Country ,style2)
 
+	if job.category == JobCategory.CAN:
+		new_sheet.write(2, 7, docket,style3)
+		
 	new_sheet.write(3, 7, case_num,style3)
 	new_sheet.write(4, 7, program,style3)
 	new_sheet.write(5, 7, supplier,style3)
 
-	Buyer = buyer +' ( D'+department+' ) ' if department != '' else buyer
+	Buyer = buyer +'(D'+department+') ' if department != '' else buyer
 	new_sheet.write(6, 7, Buyer ,style3)
 
 	new_sheet.write(7, 7, due,style3)
@@ -132,7 +162,7 @@ def do(job):
 	new_sheet.write(12, 7, contact,style3)
 
 	if job.t == T.PROOFING:
-		new_sheet.write(4, 1, "新case，见做稿,请检查",style)
+		new_sheet.write(4, 1, "新case，见做稿, 请检查",style)
 
 	#fix bug: border-right is none
 	new_sheet.write(0, 6, "", style4)
@@ -145,6 +175,10 @@ def do(job):
 	new_sheet.write(2, 6, "", style4)
 
 	today_str = datetime.datetime.now().strftime('%m%d')
+	if datetime.datetime.now().hour<8:
+		today_str=getYesterday()
+		pass
+		
 	if not isExist(job.job_dir):
 		os.mkdir(job.job_dir)
 	
