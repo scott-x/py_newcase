@@ -32,7 +32,8 @@ m = {
     "GV":"Great Value",
     "SP":"Spark",
     "EQU":"Equate",
-    "GD":"Graduation"
+    "GD":"Graduation",
+    "HAN":"Hanukkah"
 }
 
 def get_temp(str):

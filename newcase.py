@@ -108,7 +108,7 @@ def do(job):
 	new_sheet.footer_str = b''
 	# 设置单元格宽度 https://blog.csdn.net/weixin_42122355/article/details/83536142
 	# new_sheet.col(1).width -= 600
-	case_num = "Job #: "+job.job
+	case_num = "Job #:"+job.job
 	bref_brand = job.bref_brand
 	
 	if job.t == T.PROOFING:
@@ -152,7 +152,7 @@ def do(job):
 	new_sheet.write(4, 7, program,style3)
 	new_sheet.write(5, 7, supplier,style3)
 
-	Buyer = buyer +'(D'+department+') ' if department != '' else buyer
+	Buyer = buyer.strip() +' (D'+department+')' if department != '' else buyer.strip()
 	new_sheet.write(6, 7, Buyer ,style3)
 
 	new_sheet.write(7, 7, due,style3)
